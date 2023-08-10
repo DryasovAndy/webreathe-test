@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+{% block content %}
+    <div class="form-group">
+        {% for message in app.flashes('warning') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <p>
+            <b>Unit ID: {{ unit.id }} </b>
+        </p>
+
+        <p>
+            <b>Name: {{ unit.name }}</b>
+        </p>
+
+        <p>
+            <b>Designation: {{ unit.designation }}</b>
+        </p>
+    </div>
+
+    <div style="width: 40%">
+        {% form_theme form 'bootstrap_5_layout.html.twig' %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

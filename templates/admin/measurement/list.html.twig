@@ -1,0 +1,55 @@
+{% extends 'admin/base.html.twig' %}
+{% block content %}
+    <table class="table table-hover, central-text-in-block">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Date</th>
+            <th scope="col">Module</th>
+            <th scope="col">Value</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for measurement in measurements %}
+            {% if measurement.value is null %}
+                <tr class="table-danger">
+                    <td>
+                        {{ measurement.id }}
+                    </td>
+
+                    <td>
+                        {{ measurement.date.format('Y-m-d H:i:s') }}
+                    </td>
+
+                    <td>
+                        {{ measurement.module.name }}
+                    </td>
+
+                    <td>
+                        <span style="color: red; ">NULL</span>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>
+                        {{ measurement.id }}
+                    </td>
+
+                    <td>
+                        {{ measurement.date.format('Y-m-d H:i:s') }}
+                    </td>
+
+                    <td>
+                        {{ measurement.module.name }}
+                    </td>
+
+                    <td>
+                        {{ measurement.value }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

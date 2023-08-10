@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+{% block content %}
+    <p>
+        <a href="{{ path('module_create') }}" class="btn btn-success">Add module</a>
+    </p>
+
+    <table class="table table-hover, central-text-in-block">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Measurement unit</th>
+            <th scope="col" class="central-text-in-block">Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for module in modules %}
+            <tr>
+                <td>
+                    {{ module.id }}
+                </td>
+
+                <td>
+                    {{ module.name }}
+                </td>
+
+                <td>
+                    {{ module.unit.name }} ( {{ module.unit.designation }} )
+                </td>
+
+                <td class="central-text-in-block">
+                    <a href="{{ path('module_edit', {'id': module.id}) }}" class="btn btn-warning">Edit</a>
+                    <a href="{{ path('module_show', {'id': module.id}) }}" class="btn btn-info">Show</a>
+                    <a href="{{ path('module_delete', {'id': module.id}) }}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Document</title>
+
+    <link rel="stylesheet" href={{ asset('css/bootstrap.css') }}>
+    <script src={{ asset('js/bootstrap.bundle.js') }}></script>
+</head>
+<body>
+
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Dashboard</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/module/list">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+{% block body %}
+
+    {% for key, dashboardResponseDto in dashboardsResponseDto %}
+        <div style="float: left; width: 100%">
+            <div style="float: left; margin-left: 1%; width: 60%">
+                <p><b>{{ dashboardResponseDto.module.name }} Status:</b> {% if dashboardResponseDto.DaTaBlockDto.isWorking == true %}
+                        <span
+                                style="color: green; ">Is working</span> {% else %} <span
+                            style="color: red; ">Is not working</span> {% endif %} <b>Working time
+                        (all):</b> {{ dashboardResponseDto.DaTaBlockDto.timeOfWorkAll }}</b></p>
+            </div>
+            <div style="float: left; width: 50%" id="menu">
+                {% block chart %}
+                    {% set divChar =  'div_chart_' ~ key   %}
+                    <div id={{ divChar }}></div>
+
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+
+                        {{ gc_draw(dashboardResponseDto.chart, divChar) }}
+                    </script>
+                {% endblock %}
+            </div>
+
+            <div style="float: left; margin-left: 1%;" id="content">
+                {% block data %}
+                    <li class="list-group-item"><b>Data information:</b></li>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if dashboardResponseDto.DaTaBlockDto.measurementCountTic is null %}
+                            <tr class="table-danger">
+                                <th scope="row">Measurements count (tic)</th>
+                                <td>null</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th scope="row">Measurements count (tic)</th>
+                                <td>{{ dashboardResponseDto.DaTaBlockDto.measurementCountTic }}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if dashboardResponseDto.DaTaBlockDto.lastValueTic is null %}
+                            <tr class="table-danger">
+                                <th scope="row">Last value (tic)</th>
+                                <td>null</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th scope="row">Last value (tic)</th>
+                                <td>{{ dashboardResponseDto.DaTaBlockDto.lastValueTic }}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if dashboardResponseDto.DaTaBlockDto.lastNotErrorValueTic is null %}
+                            <tr class="table-danger">
+                                <th scope="row">Last not error value (tic)</th>
+                                <td>null</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th scope="row">Last not error value (tic)</th>
+                                <td>{{ dashboardResponseDto.DaTaBlockDto.lastNotErrorValueTic }}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if dashboardResponseDto.DaTaBlockDto.averageValueTic is null %}
+                            <tr class="table-danger">
+                                <th scope="row">Average value (tic)</th>
+                                <td>null</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th scope="row">Average value (tic)</th>
+                                <td>{{ dashboardResponseDto.DaTaBlockDto.averageValueTic }}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if dashboardResponseDto.DaTaBlockDto.maximumValueTic is null %}
+                            <tr class="table-danger">
+                                <th scope="row">Maximum value (tic)</th>
+                                <td>null</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th scope="row">Maximum value (tic)</th>
+                                <td>{{ dashboardResponseDto.DaTaBlockDto.maximumValueTic }}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if dashboardResponseDto.DaTaBlockDto.minimumValueTic is null %}
+                            <tr class="table-danger">
+                                <th scope="row">Minimum value (tic)</th>
+                                <td>null</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <th scope="row">Minimum value (tic)</th>
+                                <td>{{ dashboardResponseDto.DaTaBlockDto.minimumValueTic }}</td>
+                            </tr>
+                        {% endif %}
+
+                        <tr class="table-secondary">
+                            <th scope="row">Measurements count (all)</th>
+                            <td>{% if dashboardResponseDto.DaTaBlockDto.measurementCountAll is null %} null {% else %} {{ dashboardResponseDto.DaTaBlockDto.measurementCountAll }} {% endif %}</td>
+                        </tr>
+                        <tr class="table-secondary">
+                            <th scope="row">Average value (all)</th>
+                            <td>{% if dashboardResponseDto.DaTaBlockDto.averageValueAll is null %} null {% else %} {{ dashboardResponseDto.DaTaBlockDto.averageValueAll }} {% endif %}</td>
+                        </tr>
+                        <tr class="table-secondary">
+                            <th scope="row">Maximum value (all)</th>
+                            <td>{% if dashboardResponseDto.DaTaBlockDto.maximumValueAll is null %} null {% else %} {{ dashboardResponseDto.DaTaBlockDto.maximumValueAll }} {% endif %}</td>
+                        </tr>
+                        <tr class="table-secondary">
+                            <th scope="row">Minimum value (all)</th>
+                            <td>{% if dashboardResponseDto.DaTaBlockDto.minimumValueAll is null %} null {% else %} {{ dashboardResponseDto.DaTaBlockDto.minimumValueAll }} {% endif %}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% endblock %}
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+</body>
+
+</html>

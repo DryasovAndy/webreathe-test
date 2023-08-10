@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+{% block content %}
+
+    <div class="form-group">
+        <p>
+            <b>Unit {{ unit.name }} with ID = {{ id }} was deleted.</b>
+        </p>
+    </div>
+
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+{% endblock %}

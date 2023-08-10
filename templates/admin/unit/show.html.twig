@@ -1,0 +1,22 @@
+{% extends 'admin/base.html.twig' %}
+{% block content %}
+
+    <div class="form-group">
+        <p>
+            <b>Measurement unit:</b>
+        </p>
+        <p>
+            ID:
+            {{ unit.id }}
+        </p>
+        <p>
+            Name:
+            {{ unit.name }}
+        </p>
+        <p>
+            Designation:
+            {{ unit.designation }}
+        </p>
+    </div>
+
+{% endblock %}
