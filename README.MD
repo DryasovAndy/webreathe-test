@@ -22,6 +22,7 @@ Status _Is working_ means that in last batch at least one measurement was with d
 _Working time_ shows how many times module was active. Module is active if in batch was at least one success measurement.
 
 ## Admin part
+You can find it on http://localhost:8888/admin route.
 In admin part you can create, delete, update, show _module_ and _measurement unit_. And see list of measurements. After creating _module_ and _measurement unit_ you can see empty data on dashboard page.
 ## Generate measurements part
 For generationg data for _10 minutes_ run ```make generate-measurements```. It generates random data for modules. While it works, please, update page with dashboards and you will see evolution of average velue and errors count.
