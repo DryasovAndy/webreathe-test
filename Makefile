@@ -39,11 +39,17 @@ install:
 	make create-db
 	make migration
 	make cc
+	make database-permissions
 
 permissions:
 	sudo chown 1000:www-data -R ./
 	sudo chown 1000:1000 -R docker/mysql_database/
 	sudo chmod 775 -R ./
+	sudo chmod 777 -R docker/mysql_database/
+
+database-permissions:
+	sudo chown 1000:www-data -R ./
+	sudo chown 1000:1000 -R docker/mysql_database/
 	sudo chmod 777 -R docker/mysql_database/
 
 generate-measurements:
