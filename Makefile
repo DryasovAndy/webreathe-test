@@ -28,7 +28,7 @@ create-db:
 	docker-compose exec --user=application php bin/console doctrine:database:create --if-not-exists
 
 migration:
-	docker-compose exec -T --user=application php bin/console doctrine:migrations:migrate
+	docker-compose exec -T --user=application php bin/console doctrine:migrations:migrate --no-interaction
 
 install:
 	make down
