@@ -33,11 +33,18 @@ migration:
 install:
 	make down
 	make build
+	make permissions
 	docker-compose exec --user=www-data php composer install
 	make drop-db
 	make create-db
 	make migration
 	make cc
+
+permissions:
+	sudo chown 1000:www-data -R ./
+	sudo chown 1000:1000 -R docker/mysql_database/
+	sudo chmod 775 -R ./
+	sudo chmod 777 -R docker/mysql_database/
 
 generate-measurements:
 	docker-compose exec -T --user=application php bin/console webreathe:generate-measurements
